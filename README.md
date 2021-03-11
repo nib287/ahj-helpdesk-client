@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/t9rh5n1crow6i44u?svg=true)](https://ci.appveyor.com/project/nib287/ahj-helpdesk-client) https://nib287.github.io/ahj-helpdesk-client/
