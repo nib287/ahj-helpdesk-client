@@ -6,7 +6,7 @@ export default class XHR {
     getAllTickets() {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
-            xhr.open('GET', 'http://localhost:8080/?method=allTickets');
+            xhr.open('GET', 'ahj-heildesk-server.herokuapp.com/?method=allTickets');
             
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -43,7 +43,6 @@ export default class XHR {
             formData.append('method', 'createTicket');
             formData.append('id', null);
             formData.append('status', true);
-            // formData.append('created', this.getDate());
 
             const xhr = new XMLHttpRequest();   
             xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
