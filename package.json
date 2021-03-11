@@ -31,6 +31,6 @@
     "yarn": "^1.22.10"
   },
   "dependencies": {
-    "core-js": "3",
+    "core-js": "3"
   }
 }
