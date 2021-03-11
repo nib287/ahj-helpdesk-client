@@ -24,7 +24,7 @@ export default class XHR {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
             const queryString = `method=fullDescTicket&id=${ticketID}`;
-            xhr.open('GET', `http://localhost:8080/?${queryString}`);
+            xhr.open('GET', `ahj-heildesk-server.herokuapp.com/?${queryString}`);
             
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -46,7 +46,7 @@ export default class XHR {
             // formData.append('created', this.getDate());
 
             const xhr = new XMLHttpRequest();   
-            xhr.open('POST', 'http://localhost:8080/');
+            xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     resolve(xhr.response); 
@@ -65,7 +65,7 @@ export default class XHR {
         formData.append('created', this.getDate());
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'http://localhost:8080/');
+        xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
         xhr.send(formData);         
     }
     
@@ -75,7 +75,7 @@ export default class XHR {
         data.append('id', ticketID);
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'http://localhost:8080/');
+        xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
         xhr.send(data);  
     }
 
