@@ -6,7 +6,7 @@ export default class XHR {
     getAllTickets() {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
-            xhr.open('GET', 'http://localhost:8080/?method=allTickets');
+            xhr.open('GET', 'https://git.heroku.com/ahj-heildesk-server.git/?method=allTickets');
             
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -24,7 +24,7 @@ export default class XHR {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
             const queryString = `method=fullDescTicket&id=${ticketID}`;
-            xhr.open('GET', `ahj-heildesk-server.herokuapp.com/?${queryString}`);
+            xhr.open('GET', `https://git.heroku.com/ahj-heildesk-server.git/?${queryString}`);
             
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -43,10 +43,9 @@ export default class XHR {
             formData.append('method', 'createTicket');
             formData.append('id', null);
             formData.append('status', true);
-            // formData.append('created', this.getDate());
 
             const xhr = new XMLHttpRequest();   
-            xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
+            xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     resolve(xhr.response); 
@@ -65,7 +64,7 @@ export default class XHR {
         formData.append('created', this.getDate());
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
+        xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
         xhr.send(formData);         
     }
     
@@ -75,7 +74,7 @@ export default class XHR {
         data.append('id', ticketID);
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'ahj-heildesk-server.herokuapp.com/');
+        xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
         xhr.send(data);  
     }
 
