@@ -15,6 +15,7 @@ export default class Controller {
         this.activeModal = null;
         this.activeTicket = null;
         this.checkMark = null;
+        this.background = document.getElementsByClassName('background').item(0);
     }
 
     init() {
@@ -56,6 +57,8 @@ export default class Controller {
 
     openFormAdd() {
         this.addTicketButton.addEventListener('click', () => {
+            this.background.classList.toggle('hidden');
+            
             if(this.checkMark) this.checkMark.innerText = '';
             
             if(!this.activeModal) {
@@ -64,9 +67,9 @@ export default class Controller {
                 this.activeModal.classList.add('hidden');
                 this.modalAdd.classList.remove('hidden');
             }
-
+            this.closePreviousFullDesc();
             this.activeModal = this.modalAdd;
-            console.log();
+         
             this.addForm.elements.descAdd.focus();
         });
     }
@@ -74,6 +77,8 @@ export default class Controller {
     openEditModal(el) {
         const editButton = el.getElementsByClassName('ticket__edit').item(0);
         editButton.addEventListener('click', (e) => {
+            this.background.classList.toggle('hidden');
+
             if(!this.activeModal) {
                 this.modalEdit.classList.remove('hidden'); 
             } else {
@@ -93,14 +98,15 @@ export default class Controller {
             } else {
                 this.editForm.elements.full.value = fullDesc.innerText;
             }
-
-            this.activeTicket = el;
-            this.activeModal = this.modalEdit;
             
-            const parent = e.target.closest('.tickets__content');
+            this.editForm.elements.descEdit.focus();
+            const parent = e.target.closest('.tickets__item');
             const ticketDesc = parent.getElementsByClassName('ticket__desc').item(0).innerText
             this.editForm.elements.descEdit.value = ticketDesc;
-
+            this.closePreviousFullDesc(parent.dataset.id);
+            
+            this.activeTicket = el;
+            this.activeModal = this.modalEdit;
             this.getCheckMark(el);
         });
     }
@@ -108,13 +114,18 @@ export default class Controller {
     openDeleteModal(el) {
         const deleteButton = el.getElementsByClassName('ticket__delete').item(0);
         deleteButton.addEventListener('click', () => {
+            this.background.classList.toggle('hidden');
+
             if(!this.activeModal) {
                 this.modalDelete.classList.remove('hidden');
             } else {
                 this.activeModal.classList.add('hidden'); 
                 this.modalDelete.classList.remove('hidden');
             }
-
+            
+            console.log(this.modalDelete);
+            this.deleteButton.focus();
+            this.closePreviousFullDesc();
             this.activeModal = this.modalDelete;
             this.activeTicket = el;
             this.getCheckMark(el);
@@ -135,23 +146,28 @@ export default class Controller {
                 });
             }
 
-            if(this.activeTicket && this.activeTicket.dataset.id != curentTicket.dataset.id) {
-                const lastTicketFullDesc = this.activeTicket.getElementsByClassName('tickets__full-description').item(0);
-                lastTicketFullDesc.classList.add('hidden');
-            }
-
+            this.closePreviousFullDesc(curentTicket.dataset.id);
             this.activeTicket = curentTicket;
             this.getCheckMark(el);
         });
     }
     
+    closePreviousFullDesc(curentTicketID = null) {
+        if(this.activeTicket && this.activeTicket.dataset.id != curentTicketID) {
+            const lastTicketFullDesc = this.activeTicket.getElementsByClassName('tickets__full-description').item(0);
+            lastTicketFullDesc.classList.add('hidden');
+        }
+    }
+
     addTicket() {
         this.addForm.addEventListener('submit', (e) => {
             e.preventDefault();
+          
             if(!this.addForm.elements.descAdd.value) {
                 this.modalAddError.innerText = 'Добавьте краткое описание тикета';
-                this.addForm.elements.desc.focus();
+                this.addForm.elements.descAdd.focus();
             } else {
+                this.background.classList.toggle('hidden');
                 this.modalAddError.innerText = '';
                 
                 const formData = new FormData(this.addForm);
@@ -175,8 +191,9 @@ export default class Controller {
            
             if(!this.editForm.elements.descEdit.value) {
                 this.modalEditError.innerText = 'Добавьте краткое описание тикета';
-                this.editForm.elements.desc.focus();
+                this.editForm.elements.descEdit.focus();
             } else {
+                this.background.classList.toggle('hidden');
                 this.modalAddError.innerText = '';
                 
                 const formData = new FormData(this.editForm);
@@ -197,12 +214,13 @@ export default class Controller {
     }
 
     deleteTicket() {
-        this.deleteButton.addEventListener('click', (e) => {
+        this.deleteButton.addEventListener('click', () => {
             const ticketID = this.activeTicket.dataset.id
             this.xhr.sendDeleteRequest(ticketID)
 
             this.activeTicket.remove(); 
             this.modalDelete.classList.add('hidden');
+            this.background.classList.toggle('hidden');
         });
     }
 
@@ -210,11 +228,11 @@ export default class Controller {
         this.cancelButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                if(this.checkMark) this.checkMark.innerText = '';
                 
+                this.background.classList.toggle('hidden');
+                if(this.checkMark) this.checkMark.innerText = '';
                 const modal = e.target.closest('.modals');
                 modal.classList.add('hidden');
-                
                 this.clearFormValue();
             });
         });

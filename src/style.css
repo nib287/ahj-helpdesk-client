@@ -124,6 +124,10 @@ input, label{
 }
 
 .modals {
+    position: absolute;
+    z-index: 2;
+    top: 140px;
+    left: calc(50% - 300px);
     width: 600px;
     padding: 20px;
     box-sizing: border-box;
@@ -135,6 +139,17 @@ input, label{
 .error {
     color: rgb(255, 0, 0);
     font-weight: 600;
+}
+
+.background {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(32, 24, 70);
+    opacity: 0.5;
 }
 
 
