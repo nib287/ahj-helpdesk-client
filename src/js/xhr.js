@@ -24,7 +24,7 @@ export default class XHR {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
             const queryString = `method=fullDescTicket&id=${ticketID}`;
-            xhr.open('GET', `https://git.heroku.com/ahj-heildesk-server.git/?${queryString}`);
+            xhr.open('GET', `https://ahj-helpdesk.herokuapp.com/?${queryString}`);
             
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -45,7 +45,7 @@ export default class XHR {
             formData.append('status', true);
 
             const xhr = new XMLHttpRequest();   
-            xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
+            xhr.open('POST', 'https://ahj-helpdesk.herokuapp.com/');
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     resolve(xhr.response); 
@@ -64,7 +64,7 @@ export default class XHR {
         formData.append('created', this.getDate());
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
+        xhr.open('POST', 'https://ahj-helpdesk.herokuapp.com/');
         xhr.send(formData);         
     }
     
@@ -74,7 +74,7 @@ export default class XHR {
         data.append('id', ticketID);
         
         const xhr = new XMLHttpRequest();   
-        xhr.open('POST', 'https://git.heroku.com/ahj-heildesk-server.git');
+        xhr.open('POST', 'https://ahj-helpdesk.herokuapp.com/');
         xhr.send(data);  
     }
 
