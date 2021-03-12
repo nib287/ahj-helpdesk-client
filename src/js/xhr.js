@@ -7,7 +7,7 @@ export default class XHR {
         return new Promise((resolve, reject) => {   
             const xhr = new XMLHttpRequest();   
             xhr.open('GET', 'https://git.heroku.com/ahj-heildesk-server.git/?method=allTickets');
-
+            
             xhr.addEventListener('load', () => {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     resolve(xhr.response); 
