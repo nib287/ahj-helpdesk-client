@@ -15,7 +15,6 @@ export default class Controller {
         this.activeModal = null;
         this.activeTicket = null;
         this.checkMark = null;
-        this.background = document.getElementsByClassName('background').item(0);
     }
 
     init() {
@@ -48,6 +47,10 @@ export default class Controller {
         this.addForm.elements.descAdd.value = '';
         this.addForm.elements.fullAdd.value = '';
     }
+
+    getBackground() {
+        document.body.classList.toggle('background');
+    }
     
     getCheckMark(el) {
         if(this.checkMark) this.checkMark.innerText = "";
@@ -57,7 +60,7 @@ export default class Controller {
 
     openFormAdd() {
         this.addTicketButton.addEventListener('click', () => {
-            this.background.classList.toggle('hidden');
+            this.getBackground();
             
             if(this.checkMark) this.checkMark.innerText = '';
             
@@ -77,7 +80,7 @@ export default class Controller {
     openEditModal(el) {
         const editButton = el.getElementsByClassName('ticket__edit').item(0);
         editButton.addEventListener('click', (e) => {
-            this.background.classList.toggle('hidden');
+            this.getBackground();
 
             if(!this.activeModal) {
                 this.modalEdit.classList.remove('hidden'); 
@@ -114,7 +117,7 @@ export default class Controller {
     openDeleteModal(el) {
         const deleteButton = el.getElementsByClassName('ticket__delete').item(0);
         deleteButton.addEventListener('click', () => {
-            this.background.classList.toggle('hidden');
+            this.getBackground();
 
             if(!this.activeModal) {
                 this.modalDelete.classList.remove('hidden');
@@ -123,7 +126,6 @@ export default class Controller {
                 this.modalDelete.classList.remove('hidden');
             }
             
-            console.log(this.modalDelete);
             this.deleteButton.focus();
             this.closePreviousFullDesc();
             this.activeModal = this.modalDelete;
@@ -167,7 +169,7 @@ export default class Controller {
                 this.modalAddError.innerText = 'Добавьте краткое описание тикета';
                 this.addForm.elements.descAdd.focus();
             } else {
-                this.background.classList.toggle('hidden');
+                this.getBackground();
                 this.modalAddError.innerText = '';
                 
                 const formData = new FormData(this.addForm);
@@ -193,7 +195,7 @@ export default class Controller {
                 this.modalEditError.innerText = 'Добавьте краткое описание тикета';
                 this.editForm.elements.descEdit.focus();
             } else {
-                this.background.classList.toggle('hidden');
+                this.getBackground();
                 this.modalAddError.innerText = '';
                 
                 const formData = new FormData(this.editForm);
@@ -220,7 +222,7 @@ export default class Controller {
 
             this.activeTicket.remove(); 
             this.modalDelete.classList.add('hidden');
-            this.background.classList.toggle('hidden');
+            this.getBackground();
         });
     }
 
@@ -229,7 +231,7 @@ export default class Controller {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                this.background.classList.toggle('hidden');
+                this.getBackground();
                 if(this.checkMark) this.checkMark.innerText = '';
                 const modal = e.target.closest('.modals');
                 modal.classList.add('hidden');
